@@ -1,0 +1,54 @@
+
+
+```{r}
+# Load the necessary packages
+library(readr)
+```
+
+```{r}
+# Import CSV for prices
+(airbnb_price <- read_csv('airbnb_price.csv'))
+```
+```{r}
+install.packages('assertive')
+```
+
+
+```{r}
+# due to the argument is not numeric or logical
+library(assertive)
+assert_is_numeric(airbnb_price$price)
+```{r}
+is.numeric(airbnb_price$price)
+```
+
+
+```{r}
+library(stringr)
+price_dollar = str_remove(airbnb_price$price, 'dollars')
+price_dollar
+```
+
+```{r}
+airbnb_price
+```
+
+
+```{r}
+library(readr)
+library(dplyr)
+```
+
+```{r}
+#create a new column with price as numeric data types
+airbnb_price_clean <- airbnb_price %>%
+  mutate(price = as.numeric(str_remove(price, 'dollars')) )
+```
+
+
+
+```{r}
+# What is the average price of total listings?
+mean(airbnb_price_clean$price)
+```
+
