@@ -5,7 +5,7 @@
 ### Data Science 
 
 [K-Means Clustering On Movie Rating and Genres](/sample_page)
-<img src="Capture1.JPG"/>
+<img src="images/Capture1.JPG"/>
 
 ---
 [Project 2 Title](/pdf/sample_presentation.pdf)
