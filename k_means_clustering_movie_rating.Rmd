@@ -1,0 +1,109 @@
+```{r}
+library(tidyverse)  # data manipulation and visualization
+library(gridExtra)  # plot arrangement
+library(cluster)
+
+```
+
+```{r}
+customer_movie_rating <- read_csv("customer_movie_rating.csv")
+```
+```{r}
+x <- customer_movie_rating
+x <- na.omit(x)
+x <-scale(x)
+head(x)
+```
+```{r}
+k2_ <- kmeans(x, centers = 2, nstart = 25)
+str(k2_)
+```
+```{r}
+library(factoextra)
+k3_ <- kmeans(x, centers = 3, nstart = 25)
+fviz_cluster(k3_, data = x)
+
+```
+```{r}
+k3_ <- kmeans(x, centers = 3, nstart = 25)
+k4_ <- kmeans(x, centers = 4, nstart = 25)
+k5_ <- kmeans(x, centers = 5, nstart = 25)
+k7_ <- kmeans(x, centers = 7, nstart = 25)
+
+# plots to compare
+p1 <- fviz_cluster(k2_, geom = "point", data = x) + ggtitle("k = 2")
+p2 <- fviz_cluster(k3_, geom = "point",  data = x) + ggtitle("k = 3")
+p3 <- fviz_cluster(k4_, geom = "point",  data = x) + ggtitle("k = 4")
+p4 <- fviz_cluster(k5_, geom = "point",  data = x) + ggtitle("k = 5")
+
+library(gridExtra)
+
+grid.arrange(p1, p2, p3, p4, nrow = 2)
+```
+```{r}
+## Ideal Cluster Numbers
+set.seed(123)
+
+# function to compute total within-cluster sum of square 
+wss <- function(k) {
+  kmeans(x, k, nstart = 10 )$tot.withinss}
+# Compute and plot wss for k = 1 to k = 15
+k.values <- 1:15
+# extract wss for 2-15 clusters
+wss_values <- map_dbl(k.values, wss)
+
+plot(k.values, wss_values,
+       type="b", pch = 19, frame = FALSE, 
+       xlab="Number of clusters K",
+       ylab="Total within-clusters sum of squares")
+```
+
+
+
+
+```{r}
+set.seed(123)
+
+fviz_nbclust(x, kmeans, method = "wss")
+```
+
+```{r}
+#Average Silhouette Method
+
+
+fviz_nbclust(x, kmeans, method = "silhouette")
+```
+```{r}
+
+#gap statistic
+
+library(cluster)
+# compute gap statistic
+set.seed(123)
+gap_stat <- clusGap(x, FUN = kmeans, nstart = 25,
+                    K.max = 10, B = 50)
+# Print the result
+print(gap_stat, method = "firstmax")
+
+```
+```{r}
+fviz_gap_stat(gap_stat)
+```
+```{r}
+set.seed(123)
+final <- kmeans(x, 3, nstart = 25)
+print(final)
+
+
+customer_movie_rating %>%
+  mutate(Cluster = final$cluster) %>%
+  group_by(Cluster) %>%
+  summarise_all("mean")
+```
+#Berdasarkan gap statistik dan wss/averaging method, k value = 3 adalah yang optimal.
+
+Cluster 1 : Film Action punya rating tertinggi  dan Romcom yang terendah
+Cluster 2 : Film Comedy adalah memiliki rating tertinggi, dan horror yang terendah
+Cluster 3 : Rating tertinggi ada pada film horror sedangkan Romcom yang terendah.
+
+
