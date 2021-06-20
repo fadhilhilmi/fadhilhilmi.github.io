@@ -12,4 +12,4 @@ Through both method, the value of K obtained is 3.
 
 You can see the repository file on my github: 
 
-k_means_clustering_movie_rating.Rmd
+k_means_clustering_movie_rating.Rmd  https://github.com/fadhilhilmi/fadhilhilmi.github.io/blob/master/k_means_clustering_movie_rating.Rmd
