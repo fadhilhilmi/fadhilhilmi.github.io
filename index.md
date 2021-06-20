@@ -8,7 +8,7 @@
 <img src="images/Capture1.JPG"/>
 
 ---
-[Data Cleansing Exercise](sample_page2) 
+[Data Cleansing Exercise](/sample_page2) 
 
 
 
