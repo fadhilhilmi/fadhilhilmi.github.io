@@ -11,12 +11,6 @@
 [Covid-19 World Cases, Visualization Using Shiny](/pdf/sample_presentation.pdf)
 <img src="images/dummy_thumbnail.jpg?raw=true"/>
 
----
-
----
-=
-
-
 
 
 ---
