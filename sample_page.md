@@ -1,5 +1,8 @@
 ## K-Means Clustering 
 
+
+<img src="images/k3viz.JPG"/>
+
 K_Means Clustering is a broad set of
 techniques for finding subgroups
 of observations within a data set. This project can be categroized in unsupervised machine learning.
